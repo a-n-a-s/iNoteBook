@@ -27,8 +27,10 @@ router.post(
     }
     try {
       //check if user exists
+      let success ;
       let user = await UserModel.findOne({ email: req.body.email });
       if (user) {
+        success = false;
         return res.status(400).json({
           error: "Sorry this user already exists with this email address",
         });
@@ -50,8 +52,8 @@ router.post(
       //generate token
 
       const token = jwt.sign(data, JWT_SECRET);
-
-      res.json({ token });
+      success = true;
+      res.json({ success , token });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -75,6 +77,7 @@ router.post(
     try {
       let user = await UserModel.findOne({ email });
       if (!user) {
+        success = false;
         return res
           .status(404)
           .json({ error: "Please try to login again correct credentials" });
@@ -82,6 +85,7 @@ router.post(
 
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
+        success = false;
         return res
           .status(404)
           .json({ error: "Please try to login again correct credentials" });

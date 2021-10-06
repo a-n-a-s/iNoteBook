@@ -1,13 +1,27 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-const Alert = ({message}) => {
-    return (
-        <div>
-            <div className="alert alert-primary" role="alert">
-  A simple primary alert with <Link to="/"className="alert-link">an example link</Link>. Give it a click if you like.
-</div>
-        </div>
-    )
-}
+import React from "react";
 
-export default Alert
+const Alert = ({ alert }) => {
+  const capitalize = (string) => {
+      if(string === "danger")
+      {
+          string = "Error"
+      }
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+  return (
+    <div style={{ height: "50px" }}>
+      {alert && (
+        <div
+          className={`alert alert-${alert.type} alert-dismissible`}
+          role="alert"
+          id="liveAlert"
+        >
+          <strong>{capitalize(alert.type)}</strong> ! {alert.message}
+        </div>
+      )}
+    </div>
+  );
+};
+
+
+export default Alert;

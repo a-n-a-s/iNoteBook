@@ -3,13 +3,13 @@ import NoteContext from "../Context/Notes/NoteContext";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
 
-const Notes = () => {
+const Notes = ({showAlert}) => {
   const context = useContext(NoteContext);
   const { notes, getAllNotes, updateNote } = context;
   useEffect(() => {
     getAllNotes();
     // eslint-disable-next-line
-  }, []);
+  }, [notes]);
   const ref = useRef(null);
   const refClose = useRef(null);
   const [note, setNote] = useState({
@@ -31,14 +31,12 @@ const Notes = () => {
 
   const handleClick = (e) => {
     updateNote(note.id, note.edescription, note.etag, note.etitle);
-    
+
     refClose.current.click();
   };
 
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
-    
-    
   };
   return (
     <>
@@ -88,6 +86,8 @@ const Notes = () => {
                     id="etitle"
                     aria-describedby="emailHelp"
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -100,6 +100,8 @@ const Notes = () => {
                     name="edescription"
                     id="edescription"
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3 ">
@@ -129,6 +131,7 @@ const Notes = () => {
                 className="btn btn-primary"
                 type="button"
                 onClick={handleClick}
+                disabled={note.etitle < 5 || note.edescription < 5}
               >
                 Update Note
               </button>
@@ -138,6 +141,7 @@ const Notes = () => {
       </div>
       <div className="row my-3">
         <h2>Your Notes</h2>
+        {notes.length === 0 && <p className="my-1">No Notes To Display</p>}
         {notes?.map((note, index) => (
           <NoteItem note={note} key={index} editNote={editNote} />
         ))}

@@ -4,6 +4,7 @@ import NoteContext from "../Context/Notes/NoteContext";
 const NoteItem = ({ note, editNote }) => {
   const context = useContext(NoteContext);
   const { deleteNote } = context;
+  console.log(note)
   
 
   return (
