@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory , Link } from "react-router-dom";
 
 const Signup = ({showAlert}) => {
   const history = useHistory();
@@ -40,7 +40,8 @@ const Signup = ({showAlert}) => {
   };
   return (
     <div className="container">
-      <form onSubmit={handleSubmit}>
+      <h1 className="text-center">Sign Up</h1>
+      <form onSubmit={handleSubmit} className="container">
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
             Name
@@ -100,6 +101,9 @@ const Signup = ({showAlert}) => {
           Submit
         </button>
       </form>
+      <div className="my-3 container">
+        <p>Already Registered <Link to="/login" >Login</Link></p>
+      </div>
     </div>
   );
 };

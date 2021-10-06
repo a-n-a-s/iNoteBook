@@ -2,7 +2,9 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 const Navbar = () => {
   const { pathname } = useLocation();
-
+  const handleLogout =() => {
+    localStorage.removeItem('token');
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -44,12 +46,28 @@ const Navbar = () => {
             </li>
           </ul>
           <form className="d-flex">
-            <Link className="btn btn-primary mx-1" to="/login" type="submit">
-              Login
-            </Link>
-            <Link className="btn btn-primary mx-1" to="/signup" type="submit">
-              Sign Up
-            </Link>
+            {!localStorage.getItem("token") ? (
+              <>
+                <Link
+                  className="btn btn-primary mx-1"
+                  to="/login"
+                  type="submit"
+                >
+                  Login
+                </Link>
+                <Link
+                  className="btn btn-primary mx-1"
+                  to="/signup"
+                  type="submit"
+                >
+                  Sign Up
+                </Link>
+              </>
+            ) : (
+              <button className="btn btn-primary mx-1" onClick={handleLogout}  type="submit">
+                Log Out
+              </button>
+            )}
           </form>
         </div>
       </div>
