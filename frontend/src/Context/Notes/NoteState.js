@@ -36,7 +36,7 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }),
     });
     const json = await response.json();
-    const note = json;
+    const note = json.note;
     
     setNotes(notes.concat(note));
     

@@ -143,6 +143,7 @@ const Notes = ({showAlert}) => {
       <div className="row my-3">
         <h2>Your Notes</h2>
         {notes.length === 0 && <p className="my-1">No Notes To Display</p>}
+        {console.log(notes.note)}
         {notes?.map((note, index) => (
           <NoteItem note={note} key={index} showAlert={showAlert} editNote={editNote} />
         ))}

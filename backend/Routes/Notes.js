@@ -38,8 +38,8 @@ router.post(
         tag,
         user: req.user.id,
       });
-      const savedNote = await note.save();
-      res.json({ savedNote });
+      await note.save();
+      res.json({ note });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }

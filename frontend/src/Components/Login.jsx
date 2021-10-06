@@ -17,7 +17,7 @@ const Login = ({ showAlert }) => {
         password: credentials.password,
       }),
     });
-    console.log(credentials);
+    
     const json = await response.json();
     console.log(json);
 
@@ -31,8 +31,7 @@ const Login = ({ showAlert }) => {
   };
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    console.log(credentials);
-    console.log(e.target.name);
+    
   };
   return (
     <div>
