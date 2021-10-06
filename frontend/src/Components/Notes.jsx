@@ -9,7 +9,7 @@ const Notes = ({showAlert}) => {
   useEffect(() => {
     getAllNotes();
     // eslint-disable-next-line
-  }, [notes]);
+  }, []);
   const ref = useRef(null);
   const refClose = useRef(null);
   const [note, setNote] = useState({
@@ -33,6 +33,7 @@ const Notes = ({showAlert}) => {
     updateNote(note.id, note.edescription, note.etag, note.etitle);
 
     refClose.current.click();
+    showAlert("Successfully Updated" , "success")
   };
 
   const onChange = (e) => {
@@ -40,7 +41,7 @@ const Notes = ({showAlert}) => {
   };
   return (
     <>
-      <AddNote />
+      <AddNote showAlert={showAlert} />
 
       <button
         type="button"
@@ -143,7 +144,7 @@ const Notes = ({showAlert}) => {
         <h2>Your Notes</h2>
         {notes.length === 0 && <p className="my-1">No Notes To Display</p>}
         {notes?.map((note, index) => (
-          <NoteItem note={note} key={index} editNote={editNote} />
+          <NoteItem note={note} key={index} showAlert={showAlert} editNote={editNote} />
         ))}
       </div>
     </>
